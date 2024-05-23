@@ -1,0 +1,12 @@
+{
+  "_comment": "Items",
+  "item.bread.plasmythic_scythe": "Plasmythic Scythe",
+  "item.bread.plasmythic_elytra": "Plasmythic Elytra",
+  "item.bread.potion_blade": "Potion Blade",
+
+  "_comment": "Effects",
+  "effect.bread.bloodrush": "§4Bloodrush",
+
+  "_comment": "Item Groups",
+  "itemgroup.items": "Bread Items"
+}

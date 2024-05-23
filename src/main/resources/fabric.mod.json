@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "bread",
+	"version": "${version}",
+	"name": "Bread",
+	"description": "Bread",
+	"authors": [
+		"Owner - PrangellPlays"
+	],
+	"license": "PrangellPlays",
+	"icon": "assets/bread/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.prangellplays.bread.Bread"
+		],
+		"client": [
+			"dev.prangellplays.bread.BreadClient"
+		],
+		"fabric-datagen": [
+			"dev.prangellplays.bread.BreadDataGenerator"
+		]
+	},
+	"mixins": [
+		"bread.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
