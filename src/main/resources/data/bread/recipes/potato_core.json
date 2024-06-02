@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    },
+    {
+      "item": "bread:potato_core_fragment"
+    }
+  ],
+  "result": {
+    "item": "bread:potato_core",
+    "count": 1
+  }
+}

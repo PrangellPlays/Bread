@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "bread:item/potion_blade"
+		"layer0": "bread:item/weapons/potion_blade"
 	},
 	"display": {
 		"thirdperson_righthand": {

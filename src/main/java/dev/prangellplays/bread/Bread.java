@@ -1,6 +1,7 @@
 package dev.prangellplays.bread;
 
 import dev.prangellplays.bread.recipes.PotionPlasmythicScytheRecipe;
+import dev.prangellplays.bread.registry.BreadBlocks;
 import dev.prangellplays.bread.registry.BreadEffects;
 import dev.prangellplays.bread.registry.BreadItemGroups;
 import dev.prangellplays.bread.registry.BreadItems;
@@ -25,6 +26,7 @@ public class Bread implements ModInitializer {
 		BreadItems.init();
 		BreadItemGroups.init();
 		BreadEffects.init();
+		BreadBlocks.init();
 
 		POTION_PLASMYTHIC_SCYTHE = Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(MOD_ID, "potion_plasmythic_scythe"), new SpecialRecipeSerializer<>(PotionPlasmythicScytheRecipe::new));
 	}

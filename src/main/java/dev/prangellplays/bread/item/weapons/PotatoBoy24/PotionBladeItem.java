@@ -1,4 +1,4 @@
-package dev.prangellplays.bread.item;
+package dev.prangellplays.bread.item.weapons.PotatoBoy24;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;

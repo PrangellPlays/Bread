@@ -1,4 +1,4 @@
-package dev.prangellplays.bread.item;
+package dev.prangellplays.bread.item.util;
 
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
@@ -8,6 +8,8 @@ import java.util.function.Supplier;
 
 public enum BreadToolMaterials implements ToolMaterial {
     PLASMYTHIC(5, 0, 6.5f, 0, 26,() -> Ingredient.ofItems(Items.AIR)),
+    POTATO(5, 0, 6.5f, 0, 26,() -> Ingredient.ofItems(Items.AIR)),
+    HAMMER(5,750,0.5f,0,2,() -> Ingredient.ofItems(Items.AIR)),
     POTION(5, 0, 10.5f, 0, 26,() -> Ingredient.ofItems(Items.AIR));
 
     private final int miningLevel;

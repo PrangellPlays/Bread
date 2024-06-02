@@ -1,12 +1,40 @@
 {
   "_comment": "Items",
   "item.bread.plasmythic_scythe": "Plasmythic Scythe",
-  "item.bread.plasmythic_elytra": "Plasmythic Elytra",
+  "item.bread.plasmythic_longsword": "Plasmythic Longsword",
+  "item.bread.plasmythic_helmet": "Plasmythic Helmet",
+  "item.bread.plasmythic_chestplate": "Plasmythic Chestplate",
+  "item.bread.plasmythic_leggings": "Plasmythic Leggings",
+  "item.bread.plasmythic_boots": "Plasmythic Boots",
+  "item.bread.bottle_of_plasma": "Bottle of Plasma",
+
   "item.bread.potion_blade": "Potion Blade",
+
+  "item.bread.potato_blade_l1": "Potato Blade",
+  "item.bread.potato_helmet": "Potato Helmet",
+  "item.bread.potato_chestplate": "Potato Chestplate",
+  "item.bread.potato_leggings": "Potato Leggings",
+  "item.bread.potato_boots": "Potato Boots",
+  "item.bread.everlasting_bread": "Everlasting Bread",
+
+  "item.bread.potato_core_fragment": "Potato Core Fragment",
+  "item.bread.potato_core": "Potato Core",
+  "item.bread.dragon_egg_fragment": "Dragon Egg Fragment",
+  "item.bread.hammer": "Hammer",
+  "item.bread.unlimited_bacon": "Unlimited Bacon",
+
+  "item.bread.core_fragment.description": "Part of a larger core",
+  "item.bread.core.description": "A full power of a stack contained",
+
+  "_comment": "Blocks",
+  "block.bread.plasma_ore": "Plasma Ore",
 
   "_comment": "Effects",
   "effect.bread.bloodrush": "§4Bloodrush",
+  "effect.bread.plasmythic_armour": "Armoured",
+  "effect.bread.potato_armour": "\\u00A7x\\u00A76\\u00A7B\\u00A70\\u00A72\\u00A7F\\u00A7FArmoured",
 
   "_comment": "Item Groups",
-  "itemgroup.items": "Bread Items"
+  "itemgroup.items": "Bread Items",
+  "itemgroup.blocks": "Bread Blocks"
 }

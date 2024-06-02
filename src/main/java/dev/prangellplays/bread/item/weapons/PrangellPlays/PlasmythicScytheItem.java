@@ -1,4 +1,4 @@
-package dev.prangellplays.bread.item;
+package dev.prangellplays.bread.item.weapons.PrangellPlays;
 
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;

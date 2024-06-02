@@ -1,8 +1,7 @@
 {
-	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "bread:item/plasmythic_scythe"
+		"layer0": "bread:item/weapons/plasmythic_scythe"
 	},
 	"display": {
 		"thirdperson_righthand": {
