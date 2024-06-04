@@ -1,8 +1,5 @@
 package dev.prangellplays.bread.item.armor.PotatoBoy24;
 
-import com.google.common.collect.ImmutableMap;
-import dev.prangellplays.bread.Bread;
-import dev.prangellplays.bread.item.util.BreadArmourMaterials;
 import dev.prangellplays.bread.registry.BreadEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -13,72 +10,51 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.Map;
-
 public class PotatoArmorItem extends ArmorItem {
-    private static final Map<ArmorMaterial, StatusEffectInstance> MATERIAL_TO_EFFECT_MAP =
-            new ImmutableMap.Builder<ArmorMaterial, StatusEffectInstance>()
-                    .put(BreadArmourMaterials.POTATO, new StatusEffectInstance(BreadEffects.POTATO_ARMOUR, 10, 0, true, false, true)).build();
-
     public PotatoArmorItem(ArmorMaterial material, Type type, Settings settings) {
         super(material, type, settings);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(!world.isClient() && entity instanceof PlayerEntity player) {
-            if(hasFullSuitOfArmorOn(player)) {
-                evaluateArmorEffects(player);
+        if (!world.isClient() && entity instanceof PlayerEntity player) {
+            if (isWearingCorrectArmor(this.material, player)) {
+
+                if (!player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.REGENERATION)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.SPEED)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1, true, false, false));
+                }
+                if (!player.hasStatusEffect(BreadEffects.POTATO_ARMOUR)) {
+                    player.addStatusEffect(new StatusEffectInstance(BreadEffects.POTATO_ARMOUR, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.HERO_OF_THE_VILLAGE)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.LUCK)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.LUCK, 20, 4, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.STRENGTH)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20, 1, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.HASTE)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, 20, 1, true, false, false));
+                }
             }
         }
-
         super.inventoryTick(stack, world, entity, slot, selected);
     }
 
-    private void evaluateArmorEffects(PlayerEntity player) {
-        for(Map.Entry<ArmorMaterial, StatusEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            StatusEffectInstance mapStatusEffect = entry.getValue();
-
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-                addStatusEffectForMaterial(player, mapStatusEffect);
-                break;
-            }
-        }
-    }
-
-    private void addStatusEffectForMaterial(PlayerEntity player, StatusEffectInstance mapStatusEffect) {
-        boolean hasPlayerEffectAlready = player.hasStatusEffect(mapStatusEffect.getEffectType());
-
-        if(!hasPlayerEffectAlready) {
-            player.addStatusEffect(new StatusEffectInstance(mapStatusEffect.getEffectType(),
-                    mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
-        }
-    }
-
-    private boolean hasCorrectArmorOn(ArmorMaterial mapArmorMaterial, PlayerEntity player) {
-        for(ItemStack armorStack : player.getArmorItems()) {
-            if(!(armorStack.getItem() instanceof ArmorItem)) {
+    public boolean isWearingCorrectArmor(ArmorMaterial material, PlayerEntity player) {
+        for (ItemStack stack : player.getArmorItems()) {
+            if (!(stack.getItem() instanceof ArmorItem armorItem) || armorItem.getMaterial() != material) {
                 return false;
             }
         }
-
-        ArmorItem boots = ((ArmorItem) player.getInventory().getArmorStack(0).getItem());
-        ArmorItem leggings = ((ArmorItem) player.getInventory().getArmorStack(1).getItem());
-        ArmorItem chestplate = ((ArmorItem) player.getInventory().getArmorStack(2).getItem());
-        ArmorItem helmet = ((ArmorItem) player.getInventory().getArmorStack(3).getItem());
-
-        return helmet.getMaterial() == mapArmorMaterial && chestplate.getMaterial() == mapArmorMaterial &&
-                leggings.getMaterial() == mapArmorMaterial && boots.getMaterial() == mapArmorMaterial;
-    }
-
-    private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
-        ItemStack boots = player.getInventory().getArmorStack(0);
-        ItemStack leggings = player.getInventory().getArmorStack(1);
-        ItemStack chestplate = player.getInventory().getArmorStack(2);
-        ItemStack helmet = player.getInventory().getArmorStack(3);
-
-        return !boots.isEmpty() && !leggings.isEmpty()
-                && !chestplate.isEmpty() && !helmet.isEmpty();
+        return true;
     }
 }

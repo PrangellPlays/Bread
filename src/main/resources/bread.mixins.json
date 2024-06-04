@@ -8,7 +8,8 @@
 	"client": [
 		"client.ItemRendererAccessor",
 		"client.ItemRendererMixin",
-		"client.ModelLoaderMixin"
+		"client.ModelLoaderMixin",
+		"client.BipedEntityModelMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

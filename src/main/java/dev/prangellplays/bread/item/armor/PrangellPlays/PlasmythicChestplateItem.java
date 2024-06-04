@@ -1,7 +1,12 @@
 package dev.prangellplays.bread.item.armor.PrangellPlays;
 
 import dev.prangellplays.bread.item.util.BreadArmourMaterials;
+import dev.prangellplays.bread.registry.BreadEffects;
+import dev.prangellplays.bread.registry.BreadItems;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemStack;

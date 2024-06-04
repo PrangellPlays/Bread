@@ -8,9 +8,10 @@ public class PotatoArmourStatusEffect extends StatusEffect {
     public PotatoArmourStatusEffect(StatusEffectCategory category, int color) {
         super(category, color);
     }
+
     @Override
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-
+        entity.fallDistance = 0;
     }
 
     public boolean canApplyUpdateEffect(int duration, int amplifier) {

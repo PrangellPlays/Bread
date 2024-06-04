@@ -1,8 +1,5 @@
 package dev.prangellplays.bread.item.armor.PrangellPlays;
 
-import com.google.common.collect.ImmutableMap;
-import dev.prangellplays.bread.item.util.BreadArmourMaterials;
-import dev.prangellplays.bread.registry.BreadEffects;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -12,72 +9,65 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.util.Map;
-
 public class PlasmythicArmorItem extends ArmorItem {
-    private static final Map<ArmorMaterial, StatusEffectInstance> MATERIAL_TO_EFFECT_MAP =
-            new ImmutableMap.Builder<ArmorMaterial, StatusEffectInstance>()
-                    .put(BreadArmourMaterials.PLASMYTHIC, new StatusEffectInstance(StatusEffects.HASTE, 10, 0, true, false, true)).build();
-
     public PlasmythicArmorItem(ArmorMaterial material, Type type, Settings settings) {
         super(material, type, settings);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if(!world.isClient() && entity instanceof PlayerEntity player) {
-            if(hasFullSuitOfArmorOn(player)) {
-                evaluateArmorEffects(player);
+        if (!world.isClient() && entity instanceof PlayerEntity player) {
+                if (!player.getAbilities().flying && !player.isOnGround()) startFlying(player);
+            if (isWearingCorrectArmor(this.material, player)) {
+
+                if (!player.hasStatusEffect(StatusEffects.CONDUIT_POWER)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.WATER_BREATHING)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.RESISTANCE)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.REGENERATION)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.SPEED)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, 1, true, false, false));
+                }
+                if (!player.hasStatusEffect(StatusEffects.NIGHT_VISION)) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 20, 0, true, false, false));
+                }
+                entity.fallDistance = 0;
             }
         }
-
         super.inventoryTick(stack, world, entity, slot, selected);
     }
 
-    private void evaluateArmorEffects(PlayerEntity player) {
-        for(Map.Entry<ArmorMaterial, StatusEffectInstance> entry : MATERIAL_TO_EFFECT_MAP.entrySet()) {
-            ArmorMaterial mapArmorMaterial = entry.getKey();
-            StatusEffectInstance mapStatusEffect = entry.getValue();
-
-            if(hasCorrectArmorOn(mapArmorMaterial, player)) {
-                addStatusEffectForMaterial(player, mapStatusEffect);
-                break;
-            }
-        }
-    }
-
-    private void addStatusEffectForMaterial(PlayerEntity player, StatusEffectInstance mapStatusEffect) {
-        boolean hasPlayerEffectAlready = player.hasStatusEffect(mapStatusEffect.getEffectType());
-
-        if(!hasPlayerEffectAlready) {
-            player.addStatusEffect(new StatusEffectInstance(mapStatusEffect.getEffectType(),
-                    mapStatusEffect.getDuration(), mapStatusEffect.getAmplifier()));
-        }
-    }
-
-    private boolean hasCorrectArmorOn(ArmorMaterial mapArmorMaterial, PlayerEntity player) {
-        for(ItemStack armorStack : player.getArmorItems()) {
-            if(!(armorStack.getItem() instanceof ArmorItem)) {
+    public boolean isWearingCorrectArmor(ArmorMaterial material, PlayerEntity player) {
+        for (ItemStack stack : player.getArmorItems()) {
+            if (!(stack.getItem() instanceof ArmorItem armorItem) || armorItem.getMaterial() != material) {
+                stopFlying(player);
                 return false;
             }
         }
-
-        ArmorItem boots = ((ArmorItem) player.getInventory().getArmorStack(0).getItem());
-        ArmorItem leggings = ((ArmorItem) player.getInventory().getArmorStack(1).getItem());
-        ArmorItem chestplate = ((ArmorItem) player.getInventory().getArmorStack(2).getItem());
-        ArmorItem helmet = ((ArmorItem) player.getInventory().getArmorStack(3).getItem());
-
-        return helmet.getMaterial() == mapArmorMaterial && chestplate.getMaterial() == mapArmorMaterial &&
-                leggings.getMaterial() == mapArmorMaterial && boots.getMaterial() == mapArmorMaterial;
+        //startFlying(player);
+        return true;
     }
 
-    private boolean hasFullSuitOfArmorOn(PlayerEntity player) {
-        ItemStack boots = player.getInventory().getArmorStack(0);
-        ItemStack leggings = player.getInventory().getArmorStack(1);
-        ItemStack chestplate = player.getInventory().getArmorStack(2);
-        ItemStack helmet = player.getInventory().getArmorStack(3);
+    private void startFlying(PlayerEntity player) {
+        if (!player.isCreative() && !player.isSpectator() && !player.isOnGround()) {
+            player.getAbilities().allowFlying = true;
+            player.getAbilities().flying = false;
+            player.sendAbilitiesUpdate();
+        }
+    }
 
-        return !boots.isEmpty() && !leggings.isEmpty()
-                && !chestplate.isEmpty() && !helmet.isEmpty();
+    private void stopFlying(PlayerEntity player) {
+        if (!player.isCreative() && !player.isSpectator()) {
+            player.getAbilities().allowFlying = false;
+            player.getAbilities().flying = false;
+            player.sendAbilitiesUpdate();
+        }
     }
 }
