@@ -3,7 +3,7 @@
 	"package": "dev.prangellplays.bread.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-
+		"server.PlayerEntityMixin"
 	],
 	"client": [
 		"client.ItemRendererAccessor",

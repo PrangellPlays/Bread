@@ -16,6 +16,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
@@ -23,8 +24,9 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,6 +37,7 @@ import java.util.function.Supplier;
 public class PlasmythicLongswordItem extends SwordItem {
     public static final UUID ATTACK_RANGE_MODIFIER_ID = UUID.fromString("05869d86-c861-4954-9079-68c380ad063c");
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+
     public PlasmythicLongswordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
         super(toolMaterial, attackDamage, attackSpeed, settings);
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
@@ -50,10 +53,14 @@ public class PlasmythicLongswordItem extends SwordItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        PlayerEntity playerEntity = MinecraftClient.getInstance().player;
-        //if (playerEntity.getMainHandStack().isOf(BreadItems.PLASMYTHIC_LONGSWORD)) {
-        //}
-        super.inventoryTick(stack, world, entity, slot, selected);
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BLOCK;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack itemStack = user.getStackInHand(hand);
+        user.setCurrentHand(hand);
+        return TypedActionResult.consume(itemStack);
     }
 }

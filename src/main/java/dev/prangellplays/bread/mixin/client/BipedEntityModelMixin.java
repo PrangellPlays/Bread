@@ -48,6 +48,12 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> extends Anim
                     this.rightArm.pitch = (float) ((double) this.rightArm.pitch - ((double) hx * 1.2D + (double) ix));
                     this.leftArm.pitch = (float) ((double) this.leftArm.pitch - ((double) hx * 1.2D + (double) ix) * 1.2D) * 0.75F;
                 }
+
+                if (livingEntity.isBlocking()) {
+                    this.rightArm.pitch = -1.25F;
+                    this.leftArm.pitch = -1.17F;
+                    this.rightArm.roll = 0.7F;
+                }
             }
         }
     }
